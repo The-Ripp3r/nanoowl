@@ -36,7 +36,7 @@ def get_colors(count: int):
 def draw_owl_output(image, output: OwlDecodeOutput, text: List[str], draw_text=True):
     is_pil = not isinstance(image, np.ndarray)
     if is_pil:
-        image = np.asarray(image)
+        image = np.asarray(image).copy() #copy image to ensure writeable
     font = cv2.FONT_HERSHEY_SIMPLEX
     font_scale = 0.75
     colors = get_colors(len(text))
@@ -70,5 +70,5 @@ def draw_owl_output(image, output: OwlDecodeOutput, text: List[str], draw_text=T
                 cv2.LINE_AA
             )
     if is_pil:
-        image = PIL.Image.fromarray(image)
+        image = PIL.Image.fromarray(image).copy()
     return image
